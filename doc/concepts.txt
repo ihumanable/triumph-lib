@@ -1,3 +1,5 @@
+Triumph is now hosted on GitHub!
+
 Triumph is two related but decoupled pieces, the CRUD Engine and the Base Class.
 
 CRUD Engine
@@ -16,5 +18,5 @@ Data access and manipulation operations.
 Base Class
 ----------
 The Base Class is used to provide auto-CRUD capabilities to any class.  It 
-leverages the CRUD Engine and provides a clean object oriented interface to it.
+leverages the CRUD Engine and provides a clean object oriented interface to it.      
  
