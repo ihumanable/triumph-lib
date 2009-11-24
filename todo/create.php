@@ -1,13 +1,11 @@
 <?php
-	namespace Prosper;
 	require_once 'config.php';
 	
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
-		Query::insert()
-				 ->into('todo')
-				 ->values('title', $_POST)
-				 ->execute();
-		
+		$todo = new Todo();
+    $todo->title = $_POST['title'];
+    $todo->save();
+    
 		header("Location: index.php");
 	} else {
 		include_once 'header.php';

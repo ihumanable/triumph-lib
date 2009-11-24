@@ -5,6 +5,51 @@ namespace Triumph;
  * C.reate, R.ead, U.pdate, and D.elete engine used by Triumph, powered by Prosper
  */ 
 abstract class CRUD {  
+  static $debug = false;
+  
+  static function execute($sql) {
+    if(self::$debug) {
+      return $sql->verbose();
+    } else {
+      return $sql->execute();
+    }
+  }
+  
+  /**
+   * Lists all entities from a given database table
+   * @param string $table Table to pull entities from
+   * @param string $order [optional] an ordering clause
+   * @return array An array of entities
+   */              
+  static function all($table, $order = null) {
+    $sql = \Prosper\Query::select()
+                         ->from($table);
+    
+    if($order) {
+      $sql->order($order);
+    }
+
+    return self::execute($sql);                 
+  }
+  
+  /**
+   * Finds results for a given where clause
+   * @param string $table Table to look in
+   * @param string $where Where clause
+   * @param string $order [optional] an ordering clause
+   * @return array An array of entities
+   */                 
+  static function find($table, $where, $order = null) {
+    $sql = \Prosper\Query::select()
+                         ->from($table)
+                         ->where($where);
+    
+    if($order) {
+      $sql->order($order);
+    }
+    
+    return self::execute($sql);                     
+  }
   
   /**
    * Inserts a record into a database table
@@ -15,7 +60,7 @@ abstract class CRUD {
     $sql = \Prosper\Query::insert()
                          ->into($table)
                          ->values($values);
-    return $sql;
+    return self::execute($sql);
   }
   
   /**
@@ -29,7 +74,7 @@ abstract class CRUD {
     $sql = \Prosper\Query::update($table)
                          ->set($values)
                          ->where("$col = ?", $id);
-    return $sql;
+    return self::execute($sql);
   }
   
   /**
@@ -39,7 +84,8 @@ abstract class CRUD {
    * @param string $col [optional] Name of the Primary Key Column, defaults to 'id'
    */              
   static function exists($table, $id, $col = 'id') {
-    return self::load($table, $id, $col);    
+    $result = self::load($table, $id, $col);
+    return count($result) > 0;    
   }
   
   /**
@@ -52,7 +98,7 @@ abstract class CRUD {
     $sql = \Prosper\Query::select()
                          ->from($table)
                          ->where("$col = ?", $id);
-    return $sql;
+    return self::execute($sql);
   }
   
   /**
@@ -65,7 +111,7 @@ abstract class CRUD {
     $sql = \Prosper\Query::delete()
                          ->from($table)
                          ->where("$col = ?", $id);
-    return $sql;
+    return self::execute($sql);
   }
   
 }

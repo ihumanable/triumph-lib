@@ -43,6 +43,55 @@ class Base {
   }
   
   /**
+   * Retrieve a list of the entities
+   * @param string $order [optional] an ordering clause    
+   * @return array entries All table entries
+   */     
+  static function all($order = null) {
+    return self::from_arrays(CRUD::all(self::table(), $order));
+  }
+  
+  /**
+   * Finds entities based off of a where clause and optional ordering clause
+   * @param string $where where clause
+   * @param string $order [optional] an ordering clause
+   * @return array entries Found table entries
+   */                 
+  static function find($where, $order = null) {
+    return self::from_arrays(CRUD::find(self::table(), $where, $order));
+  }
+  
+  /**
+   * Turns a multi-dimensional result array into an array of entities
+   * @params array $entities Multi-dimensional array of results
+   * @returns array Array of entitis instances
+   * @see Triumph\Base#from_array($values)
+   */              
+  static function from_arrays($entities) {
+    if(is_array($entities)) {
+      foreach($entities as $entity) {
+        $result[] = static::from_array($entity);
+      }
+    } else {
+      $result = array();
+    }
+    return $result;
+  }
+  
+  /**
+   * Create an entity from an array
+   * @param array $values Associative array to use to populate
+   * @return mixed new entity instance
+   * @see Triumph\Base#populate($values)         
+   */     
+  static function from_array($values) {
+    $class = get_called_class();
+    $result = new $class();
+    $result->populate($values);
+    return $result;
+  }
+  
+  /**
    * Constructs a new persistent object
    * @param mixed $id [optional] if passed will attempt to load the object
    * @return new persistent object instance
@@ -68,11 +117,7 @@ class Base {
    */        
   function save() {
     if($this->id) {
-      if($this->exists()) {
-        $this->update();
-      } else {
-        $this->insert();
-      }
+      $this->update();
     } else {
       $this->insert();
     }  
@@ -83,7 +128,7 @@ class Base {
    * @see Triumph\CRUD::insert($table, $values)
    */        
   function insert() {
-    return CRUD::insert(self::table(), $this->as_array());
+    $this->id = CRUD::insert(self::table(), $this->as_array());
   }
   
   /**
@@ -91,22 +136,7 @@ class Base {
    * @see Triumph\CRUD::update($table, $values, $id, $col)
    */        
   function update() {
-    return CRUD::update(self::table(), $this->as_array(), $this->id);
-  }
-  
-  /**
-   * Checks for existence
-   * @see Triumph\CRUD::exists($table, $id, $col)
-   * @see Triumph\Base::load($id)
-   */           
-  function exists($id = null) {
-    $this->id($id);
-  
-    if($this->id) {
-      return $this->load();
-    } else {
-      return false;
-    }      
+    CRUD::update(self::table(), $this->as_array(), $this->id);
   }
   
   /**
@@ -117,7 +147,8 @@ class Base {
     $this->id($id);
     
     if($this->id) {
-      return CRUD::load(self::table(), $this->id);
+      $result = CRUD::load(self::table(), $this->id);
+      $this->populate($result[0]);
     }
   }
   
@@ -129,7 +160,17 @@ class Base {
     $this->id($id);
     
     if($this->id) {
-      return CRUD::delete(self::table(), $this->id);
+      CRUD::delete(self::table(), $this->id);
+    }
+  }
+  
+  /**
+   * Populates an objects properties from an associative array
+   * @param array $values The array to populate with
+   */        
+  function populate($values) {
+    foreach($values as $key => $value) {
+      $this->$key = $value;
     }
   }
   

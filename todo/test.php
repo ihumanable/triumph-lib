@@ -4,6 +4,8 @@ require_once 'config.php';
 $todo = new Todo();
 
 echo '<pre>';
+echo Todo::all();
+echo '</pre><hr><pre>';
 print_r($todo);
 echo '</pre><hr><pre>';
 print_r($todo->as_array());

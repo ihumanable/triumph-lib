@@ -1,25 +1,30 @@
 <?php
-	namespace Prosper;
 	require_once 'config.php';
 	
 	include_once 'header.php';
-	
-	//Pull out all of the todo items, stable order
-	$todos = Query::select()
-	 							->from('todo')
-								->order('id')
-								->execute();
+
+?>
+
+<div class="todo" style="text-align:right;">
+  <form action="index.php" method="post">
+    <input type="text" name="search" id="search" <?php if($_SERVER['REQUEST_METHOD'] == 'POST') echo "value=\"{$_POST['search']}\""; ?> />
+    <input type="submit" value="search" />
+  </form>
+</div>
+
+<?php
+
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //Go Looking
+    $todos = Todo::find("title like '{$_POST['search']}%'");
+  } else {
+  	//Pull out all of the todo items, stable order
+  	$todos = Todo::all('id');
+  }
 	
 	if(is_array($todos)) {
 		foreach($todos as $todo) {
-?>
-
-	<div class="todo">
-		<div class="item">#<?php echo $todo['id'] . " - " . $todo['title'] . " @ " . time_ago(Query::mktime($todo['timestamp'])); ?> </div>
-		<div class="controls"><a href="edit.php?id=<?php echo $todo['id']; ?>">edit</a>  |  <a href="delete.php?id=<?php echo $todo['id']; ?>">delete</a></div>
-	</div>	
-
-<?php
+		  $todo->display();
 		}
 	}
 ?>

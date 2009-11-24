@@ -2,11 +2,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>prosper</title>
+		<title>triumph</title>
 		<link rel="stylesheet" href="style/main.css" />
 	</head>
 	<body>		
 		<div id="content">
 			<div id="header">
-				<h1><a href="index.php">prosper todo list</a></h1>
+				<h1><a href="index.php">triumph todo list</a></h1>
 			</div>
