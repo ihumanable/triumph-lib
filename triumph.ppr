@@ -11,18 +11,18 @@ FileFormat=0
 ProjectFilesOnly=0
 [Project tree]
 triumph
-	+doc
+	-doc
 		readme.md
-	+lib
+	-lib
 		lib\CRUD.php
 		lib\Base.php
-	+todo
-		+img
+	-todo
+		-img
 			todo\img\create.png
-		+lib
+		-lib
 			todo\lib\todo.php
 			todo\lib\utility.php
-		+style
+		-style
 			todo\style\main.css
 		todo\.htaccess
 		todo\config.php

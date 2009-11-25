@@ -12,7 +12,7 @@
                      "day"    =>    86400,
                      "hour"   =>     3600,
                      "minute" =>       60,
-                     "second" =>        1	 );
+                     "second" =>        1 );
     
     $diff = mktime() - $timestamp - 24;
     $label = "second";
@@ -36,13 +36,17 @@
    * @param string $action Page to submit to	 
    * @param string $label Label for submit button and general action
    * @param string $value [optional] Value to populate the textbox with, defaults to empty
+   * @param string $id [optional] Todo id to be embedded in the form as a hidden field
    * @param bool $edit [optional] should the text box be editable, defaults to true
-   */                  	
-  function display_form($action, $label, $value="", $edit = true) {
+   */
+  function display_form($action, $label, $value = "", $id = null, $edit = true) {
     $result = "<h3>$label todo</h3>\n";
     
     $result .= "<form class=\"todo\" action=\"$action\" method=\"post\">\n";
       $result .= "\t<div class=\"item\"\n";
+        if($id) {
+          $result .= "\t\t<input type=\"hidden\" name=\"id\" value=\"$id\" />\n";
+        }
         if($edit) {
           $result .= "\t\t<input type=\"text\" name=\"title\" value=\"$value\" />\n";
         } else {
