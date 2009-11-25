@@ -1,6 +1,6 @@
 <?php
   require_once 'config.php';
-
+  
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     //Delete the todo and redirect
     $todo = new Todo($_POST['id']);
@@ -15,5 +15,5 @@
     
     include_once 'footer.php';
   }
-
+  
 ?>

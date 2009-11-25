@@ -1,6 +1,6 @@
 <?php
   require_once 'config.php';
-
+  
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $todo = new Todo();
     $todo->title = $_POST['title'];
@@ -14,5 +14,5 @@
   
     include_once 'footer.php';
   }
-
+  
 ?>
