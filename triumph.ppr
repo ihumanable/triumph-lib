@@ -12,7 +12,7 @@ ProjectFilesOnly=0
 [Project tree]
 triumph
 	+doc
-		doc\concepts.txt
+		readme.md
 	+lib
 		lib\CRUD.php
 		lib\Base.php
@@ -21,6 +21,7 @@ triumph
 			todo\img\create.png
 		+lib
 			todo\lib\todo.php
+			todo\lib\utility.php
 		+style
 			todo\style\main.css
 		todo\.htaccess
@@ -37,13 +38,17 @@ triumph
 1=todo\lib\todo.php
 2=todo\test.php
 3=lib\Base.php
-4=doc\concepts.txt
+4=todo\create.php
+5=todo\lib\utility.php
+6=todo\delete.php
+7=todo\edit.php
+8=todo\index.php
 [Selected Project Files]
 Main=
-Selected=doc\concepts.txt
+Selected=todo\delete.php
 [todo\config.php]
 TopLine=1
-Caret=35,8
+Caret=41,9
 [todo\lib\todo.php]
 TopLine=1
 Caret=32,3
@@ -51,8 +56,20 @@ Caret=32,3
 TopLine=1
 Caret=31,20
 [lib\Base.php]
-TopLine=55
-Caret=7,77
-[doc\concepts.txt]
+TopLine=39
+Caret=29,70
+[todo\create.php]
 TopLine=1
-Caret=33,1
+Caret=3,14
+[todo\lib\utility.php]
+TopLine=17
+Caret=7,58
+[todo\delete.php]
+TopLine=1
+Caret=1,18
+[todo\edit.php]
+TopLine=1
+Caret=1,15
+[todo\index.php]
+TopLine=1
+Caret=1,1
