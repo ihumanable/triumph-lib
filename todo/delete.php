@@ -10,24 +10,10 @@
     header("Location: index.php");
 	} else {
 		include_once 'header.php';
-		$todo = new Todo($_GET['id']);
 		
-?>
-
-		<h3>delete todo</h3>
+    $todo = new Todo($_GET['id']);
+		display_form("delete.php", "delete", "Delete {$todo->title}?", false);
 		
-		<form class='todo' action='delete.php' method='post'>
-			<input type="hidden" name="id" value="<?php echo $todo->id ?>" />
-			<div class="item">
-				Delete "<?php echo $todo->title; ?>" ?
-			</div>
-			<div class="controls">
-				<input type="submit" value="Confirm" />
-				<button onclick="window.location.href='index.php'; return false;">Cancel</button>
-			</div>
-		</form>
-
-<?php
 
 		include_once 'footer.php';
 	}
