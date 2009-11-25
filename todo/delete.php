@@ -11,7 +11,7 @@
     include_once 'header.php';
     
     $todo = new Todo($_GET['id']);
-    display_form("delete.php", "delete", "Delete {$todo->title}?", false);
+    display_form("delete.php", "delete", "Delete {$todo->title}?", $todo->id, false);
     
     include_once 'footer.php';
   }

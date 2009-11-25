@@ -11,7 +11,7 @@
     include_once 'header.php';
     
     $todo = new Todo($_GET['id']);
-    display_form("edit.php", "edit", $todo->title);
+    display_form("edit.php", "edit", $todo->title, $todo->id);
     
     include_once 'footer.php';
   }
